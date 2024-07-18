@@ -39,15 +39,15 @@ XeNeuDTMessenger::XeNeuDTMessenger( XeNeuDTDetector *Det )
   : XeNeudetector( Det )
 {
   //  Set up the directory
-  XeNeuDir = new G4UIdirectory( "/XeNeu/" );
-  XeNeuDir->SetGuidance( "All XeNeu project commands are contained under /XeNeu/" );
+  XeNeuDir = new G4UIdirectory( "/XeNeuDT/" );
+  XeNeuDir->SetGuidance( "All XeNeuDT project commands are contained under /XeNeuDT/" );
 
-  XeNeuDDShieldingCommand = new G4UIcmdWithABool("/XeNeu/ddShieldingOn", this);
+  XeNeuDDShieldingCommand = new G4UIcmdWithABool("/XeNeuDT/ddShieldingOn", this);
   XeNeuDDShieldingCommand->SetGuidance("Turns the dd shielding geometry on or off.");
   XeNeuDDShieldingCommand->SetGuidance(" The default choice is false." );
   XeNeuDDShieldingCommand->AvailableForStates( G4State_PreInit, G4State_Idle );
 
-  XeNeuDTShieldingCommand = new G4UIcmdWithABool("/XeNeu/dtShieldingOn", this);
+  XeNeuDTShieldingCommand = new G4UIcmdWithABool("/XeNeuDT/dtShieldingOn", this);
   XeNeuDTShieldingCommand->SetGuidance("Turns the dt shielding geometry on or off.");
   XeNeuDTShieldingCommand->SetGuidance(" The default choice is false." );
   XeNeuDTShieldingCommand->AvailableForStates( G4State_PreInit, G4State_Idle ); 
@@ -69,11 +69,17 @@ XeNeuDTMessenger::~XeNeuDTMessenger()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 void XeNeuDTMessenger::SetNewValue( G4UIcommand *command, G4String newValue )
 {
-   if( command == XeNeuDDShieldingCommand )
-      XeNeudetector->SetXeNeuDDShielding( XeNeuDDShieldingCommand->GetNewBoolValue(newValue) ); 
+   G4cout << "the command is " << command << G4endl;
+   if( command == XeNeuDDShieldingCommand ){
+      G4cout << "setting DD shielding to the value " << newValue << G4endl;
+      XeNeudetector->SetXeNeuDDShielding( XeNeuDDShieldingCommand->GetNewBoolValue(newValue) );
+      G4cout << "new value is " << XeNeudetector->GetXeNeuDDShielding() << G4endl;
+   }
 
-   if( command == XeNeuDTShieldingCommand )
+   if( command == XeNeuDTShieldingCommand ){
+      G4cout << "setting DT shielding to the value " << newValue << G4endl;
       XeNeudetector->SetXeNeuDTShielding( XeNeuDTShieldingCommand->GetNewBoolValue(newValue) ); 
-
+      G4cout << "new value is " << XeNeudetector->GetXeNeuDTShielding() << G4endl;
+   }
 }
 

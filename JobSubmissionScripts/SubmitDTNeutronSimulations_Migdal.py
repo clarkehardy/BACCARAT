@@ -1,16 +1,16 @@
 #!/usr/local/bin/python
 
 import os
-geant4 = "geant4.10.02"
-root = "root_v5.34.03"
-execdir = "/g/g20/lenardo1/Simulations/BACCARAT/"
+geant4 = "geant4.10.7.2"
+root = "root_v6.24.08"
+execdir = "/g/g92/hardy27/BACCARAT/"
 
-macro = "/g/g20/lenardo1/Simulations/BACCARAT/XeNeuDT/Macros/DTNeutrons_10deg_95cmX_Migdal_06.mac"
+macro = "/g/g92/hardy27/BACCARAT/XeNeuDT/Macros/DTNeutrons_10deg_95cmX_Migdal_EXAMPLE.mac"
 
-datadir = '/p/lustre1/lenardo1/simulations/XeNeu_DT_20220403_10deg_14det_95cmXdistance_06/'
+datadir = '/p/lustre1/hardy27/simulations/XeNeu_DT_20220403_10deg_14det_95cmXdistance_EXAMPLE/'
 base = "XeNeu_DT_"
 
-for num in range(0,1000):
+for num in range(0,10):
 	#if num > 0: break
 	basename = base + str(num)
 
@@ -20,11 +20,10 @@ for num in range(0,1000):
 	os.system( "rm -f " + outfilename )
 	
 	thescript = "#!/bin/bash\n" + \
-		"#SBATCH -t 04:30:00\n" + \
-		"#SBATCH -A redxenon\n" + \
+		"#SBATCH -t 0:10:00\n" + \
 		"#SBATCH -e " + outfilename + "\n" + \
 		"#SBATCH -o " + outfilename + "\n" + \
-		"#SBATCH --mail-user=bglenardo@gmail.com --mail-type=fail\n" + \
+		"#SBATCH --mail-user=cahardy@stanford.edu --mail-type=fail\n" + \
 		"#SBATCH -J " + basename + "\n" + \
 		"#SBATCH --export=ALL \n" + \
                 "source ~/.profile.linux \n" + \

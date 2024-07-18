@@ -16,7 +16,7 @@
 /run/initialize
 
 # Set the output directory
-/Bacc/io/outputDir /p/lustre1/lenardo1/simulations/XeNeu_DT_20220403_10deg_14det_95cmXdistance_01/
+/Bacc/io/outputDir /p/lustre1/hardy27/simulations/XeNeu_DT_20220403_10deg_14det_95cmXdistance_EXAMPLE/
 
 # Set the name of the output files. There is a large ~10 digit random number that gets
 # appended to this string to uniquely identify files.
@@ -111,6 +111,6 @@
 
 
 # Finally, tell the code how many primary particles to generate in this simulation.
-/Bacc/beamOn 1000000
+/Bacc/beamOn 100
 
 exit

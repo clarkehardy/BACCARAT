@@ -60,8 +60,8 @@ private:
   G4NistManager *NISTmaterials;
   BaccMaterials *BACCmaterials;
   
-  G4bool ddShieldingOn;
-  G4bool dtShieldingOn;
+  G4bool ddShieldingOn = false;
+  G4bool dtShieldingOn = false;
 };
 
 #endif
