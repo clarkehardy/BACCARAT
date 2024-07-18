@@ -93,10 +93,6 @@ XeNeuDTDetector::XeNeuDTDetector( G4String detName,
   //get the Bacc Materials and Nist materials
   NISTmaterials = G4NistManager::Instance();
   BACCmaterials = BaccMaterials::GetMaterials();
-
-  G4cout << "initializing ddShieldingOn to value " << ddShieldingOn << G4endl;
-  G4cout << "initializing dtShieldingOn to value " << dtShieldingOn << G4endl;
-
 }
 
 //------++++++------++++++------++++++------++++++------++++++------++++++------
@@ -117,9 +113,6 @@ void XeNeuDTDetector::InitializeDetector(){
   BaccManager *BACCmanager = BaccManager::GetManager();
   
   //you can add the detector-specific source catalog here
-
-  G4cout << "after initialization ddShieldingOn value is " << ddShieldingOn << G4endl;
-  G4cout << "after initialization dtShieldingOn value is " << dtShieldingOn << G4endl;
   
 }
 
@@ -173,12 +166,6 @@ void XeNeuDTDetector::BuildDetector(){
   G4Box * laboratory = new G4Box("laboratory", 8 * m, 8 * m, 8 * m);
   logicalVolume  = new G4LogicalVolume(laboratory, BACCmaterials->Air(), "laboratory");
   logicalVolume->SetVisAttributes( BACCmaterials->VacuumVis() );
-
-
-  G4cout << "***************************************************" << G4endl;
-  G4cout << "ddShieldingOn variable is " << ddShieldingOn << G4endl;
-  G4cout << "dtShieldingOn variable is " << dtShieldingOn << G4endl;
-  G4cout << "***************************************************" << G4endl;
 
 // Create the DT Shielding object
 if( dtShieldingOn ) {
@@ -453,10 +440,6 @@ if( dtShieldingOn ) {
 
 } 
 if (ddShieldingOn) {
-
-  G4cout << "***************************************************" << G4endl;
-  G4cout << "Building geometry for DD generator and shielding..." << G4endl;
-  G4cout << "***************************************************" << G4endl;
 
   XeNeu_DDShieldingMigdal * dd_shield_obj = new XeNeu_DDShieldingMigdal();  
   //XeNeu_DDShieldingMigdal * dt_shield_obj = new XeNeu_DDShieldingMigdal();

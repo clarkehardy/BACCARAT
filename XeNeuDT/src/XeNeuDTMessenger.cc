@@ -69,17 +69,13 @@ XeNeuDTMessenger::~XeNeuDTMessenger()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 void XeNeuDTMessenger::SetNewValue( G4UIcommand *command, G4String newValue )
 {
-   G4cout << "the command is " << command << G4endl;
+  
    if( command == XeNeuDDShieldingCommand ){
-      G4cout << "setting DD shielding to the value " << newValue << G4endl;
       XeNeudetector->SetXeNeuDDShielding( XeNeuDDShieldingCommand->GetNewBoolValue(newValue) );
-      G4cout << "new value is " << XeNeudetector->GetXeNeuDDShielding() << G4endl;
    }
 
    if( command == XeNeuDTShieldingCommand ){
-      G4cout << "setting DT shielding to the value " << newValue << G4endl;
       XeNeudetector->SetXeNeuDTShielding( XeNeuDTShieldingCommand->GetNewBoolValue(newValue) ); 
-      G4cout << "new value is " << XeNeudetector->GetXeNeuDTShielding() << G4endl;
    }
 }
 
