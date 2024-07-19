@@ -1,81 +1,48 @@
 ####################################################################################################
-# example macro for the LUXSim package                                                             #
 #                                                                                                  #
-# Change log:                                                                                      #
-# 19 Aug 2013 - Initial submission (Vic)                                                           #
+# Macro for generating DT neutrons for the Migdal experiment                                       #
 #                                                                                                  #
 ####################################################################################################
+
 /run/verbose 1
 /control/verbose 0
 /tracking/verbose 0
 /grdm/verbose 0
 /process/verbose 0
 
-## Set up visualization - Comment this stuff out if you want to skip visualization
-###/vis/open OGLSQt 1200x1200-0+0
-#/vis/open VRML2FILE
-#/vis/drawVolume
-#/vis/scene/add/trajectories
-#/vis/scene/endOfEventAction accumulate
-#/tracking/storeTrajectory 1
-#/vis/viewer/set/viewpointVector 0.5 0.75 1
-#/vis/viewer/set/upVector 0 0 1
-#/vis/viewer/zoom 0 
-##/vis/viewer/set/viewpointThetaPhi 45 45             
-#/vis/viewer/set/style surface
-
-# Set up visualization so that we don't cloud the issue with neutrinos - Comment this stuff out if you want to skip visualization
-#/vis/filtering/trajectories/create/particleFilter
-#/vis/filtering/trajectories/particleFilter-0/add nu_e
-#/vis/filtering/trajectories/particleFilter-0/add nu_mu
-#/vis/filtering/trajectories/particleFilter-0/add nu_tau
-#/vis/filtering/trajectories/particleFilter-0/add anti_nu_e
-#/vis/filtering/trajectories/particleFilter-0/add anti_nu_mu
-#/vis/filtering/trajectories/particleFilter-0/add anti_nu_tau
-#/vis/filtering/trajectories/particleFilter-0/invert true
-
-# Color keys: white, gray, grey, black, red, green, blue, cyan, magenta, yellow - Comment this stuff out if you want to skip visualization
-#/vis/modeling/trajectories/create/drawByParticleID
-#/vis/modeling/trajectories/drawByParticleID-0/set e+ blue
-#/vis/modeling/trajectories/drawByParticleID-0/set e- magenta
-#/vis/modeling/trajectories/drawByParticleID-0/set proton cyan
-#/vis/modeling/trajectories/drawByParticleID-0/set neutron grey
-#/vis/modeling/trajectories/drawByParticleID-0/set gamma green
-#/vis/modeling/trajectories/drawByParticleID-0/set opticalPhoton yellow
-
 # This next set of lines is to, as it appears, initialize the simulation
 /run/initialize
 
 # Set the output directory
-/Bacc/io/outputDir /p/lustre1/lenardo1/simulations/XeNeu_DT_20220128_Four17deg_DoubleDistance/
-#/p/lscratchh/naim1/DTSimulations/PastRootFiles/ScatteringTests/BackgroundTests/
-#g/g14/naim1/BACCARAT/ 
-#/p/lscratchh/naim1/DTSimulations/PastRootFiles/ScatteringTests/
-#/g/g14/naim1/BACCARAT/ 
-#/p/lscratchh/naim1/DTSimulations/Tests/bin_files/
-/Bacc/io/outputName DT_Four17Deg_DoubleDistance
-#BackgroundTest_Sheetinfrontofcollimator_10thousand14MeVNeutrons_Iso_20cmlead_36inchwater_
+/Bacc/io/outputDir /p/lustre1/hardy27/simulations/XeNeuMigdal_20240718/
 
-# FiftyThousandNeutronsOne_SixDifferentDegrees_LSWaterTankRadius80cm115cmDistanceRecordXenonandLS1MonoEnergeticBeam14MeV_StepSizeCut_
+# Set the name of the output files. There is a large ~10 digit random number that gets
+# appended to this string to uniquely identify files.
+/Bacc/io/outputName DT_14det_95cmXDistance_10degOpening_Migdal_
+
+# This just defines how often the code prints its progress to the screen while it runs.
 /Bacc/io/updateFrequency 5000
 
-
-# Set the random seed
+# Set the random seed. If this is commented out, it will randomly generate a seed.
 #/Bacc/randomSeed 0
 
-# Select the kind of detector to use
-/XeNeu/dtShieldingOn true
-#/Bacc/detector/select simpleExample
-#/Bacc/detector/select complexExample
-#/Bacc/detector/select LLNLSinglePhase
-/Bacc/detector/select XeNeuDTDetector
-#/XeNeu/ddShieldingOn true
+# Select which geometry to use. This is always in the format <project name>Detector
+# due to the class structure.
+/Bacc/detector/select XeNeuMigdalDetector
 
-# Update geometry
+# add any project-specific macro commands. This particualar one is defined in 
+# XeNeuMigdal/src/XeNeuMigdalMessenger.cc
+/XeNeuMigdal/dtShieldingOn true
+
+# Update geometry (otherwise it doesn't load the geometry specified above)
 /Bacc/detector/update
 
-
-#record
+# Set the recordLevels. This defines how much information to save for
+# the specified volumes. I'll document what each recordLevel means in the 
+# gitHub's README; for now, just know that "recordLevel 2" means that 
+# the code saves every step that deposits energy in the volume.
+# The volume names used here are the ones defined when the "BaccDetectorComponent"
+# for that volume is defined (see e.g. XeNeuMigdal/src/XeNeuMigdal_XeDetector.cc)
 /Bacc/detector/recordLevel liquid_xenon 2 # For "GNARRLIDetector"
 /Bacc/detector/recordLevel outer_can 2 
 /Bacc/detector/recordLevel vacuum_space 2
@@ -83,15 +50,18 @@
 /Bacc/detector/recordLevel detector 2
 /Bacc/detector/recordLevel dt_shield 2
 /Bacc/detector/recordLevel Teflon 2
-/Bacc/detector/recordLevel DT_Tube 2
-/Bacc/detector/recordLevel Lead 2
-/Bacc/detector/recordLevel BPEShielding 2
-/Bacc/detector/recordLevel Collimator 2
-/Bacc/detector/recordLevel Water 2
+/Bacc/detector/recordLevel DT_Tube 1
+/Bacc/detector/recordLevel Lead 1
+/Bacc/detector/recordLevel BPEShielding 1
+/Bacc/detector/recordLevel Collimator 1
+/Bacc/detector/recordLevel Water 1
+/Bacc/detector/recordLevel concrete 1 
 /Bacc/detector/recordLevel PhotocathodeBottom 2
 
 /Bacc/detector/recordLevel cathode_ring 2
 /Bacc/detector/recordLevel field_ring 2
+/Bacc/detector/recordLevel weir 2
+/Bacc/detector/recordLevel extraction_grid 2 
 /Bacc/detector/recordLevel peek_rod 2
 /Bacc/detector/recordLevel teflon 2
 /Bacc/detector/recordLevel gas_xenon 2
@@ -109,31 +79,28 @@
 /Bacc/detector/recordLevel steel 2
 /Bacc/detector/recordLevel vacuum 2
 
-
-
+# This code defines the source of particles. I typically use Geant4's "general particle source" (gps)
+# to generate stuff. Below I generate a beam of perfectly monoenergetic neutrons from a single point at
+# (x,y,z) = (1.52m,0.,0.), which in this particular experiment was the center of the DT shielding. 
+# (Note that typically the coordinate system is centered on the middle of the liquid xenon detector). 
+# The source is isotropic, but I constrain it to a cone in the negative x-direction (just so I'm not 
+# wasting CPU time on generating lots of neutrons that will never make it to the xenon detector)
 
 /gps/particle neutron
 /gps/energy 14.1 MeV
 /gps/ene/type Mono
-#/gps/ene/sigma .1 MeV
-/gps/position 1.82 0. 0. m
-#/gps/direction -1 0 0
+/gps/position 1.52 0. 0. m
 /gps/ang/type iso
 /gps/ang/mintheta 0. deg
-/gps/ang/maxtheta 1. deg
+/gps/ang/maxtheta 10. deg
 /gps/ang/rot1 0 0 1
 /gps/ang/rot2 0 -1 0
-#/gps/ang/mintheta 0. deg
-#/gps/ang/maxtheta 20. deg
-#/gps/ang/minphi 160. deg
-#/gps/ang/maxphi 200. deg
-#/gps/ang/rot1 0 1 0
-#/gps/ang/rot2 0 0 1
 
-
+# This turns on/off the NEST that's built into the G4 simulation. Always turn this off,
+# since the built-in NEST is way outdated and doesn't work properly.
 /Bacc/physicsList/useOpticalProcesses 0
 
+# Finally, tell the code how many primary particles to generate in this simulation.
 /Bacc/beamOn 1000000
-#/Bacc/beamOn 100
 
 exit
