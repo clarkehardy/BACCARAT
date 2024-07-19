@@ -9,12 +9,12 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef XeNeuDTDetectorParameters_h
-#define XeNeuDTDetectorParameters_h 1
+#ifndef XeNeuMigdalDetectorParameters_h
+#define XeNeuMigdalDetectorParameters_h 1
 
 #include "G4SystemOfUnits.hh"
 
-namespace XeNeuDTDetectorParameters{
+namespace XeNeuMigdalDetectorParameters{
   
   //define your detector parameters here
 

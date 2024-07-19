@@ -9,8 +9,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef XeNeuDTDetector_HH
-#define XeNeuDTDetector_HH 1
+#ifndef XeNeuMigdalDetector_HH
+#define XeNeuMigdalDetector_HH 1
 
 //
 //      GEANT4 includes
@@ -26,7 +26,7 @@
 //
 //	Project-specific includes
 //
-//#include "XeNeuDTDetectorParameters.hh"
+//#include "XeNeuMigdalDetectorParameters.hh"
 
 //
 //      Class forwarding
@@ -35,28 +35,28 @@ class G4LogicalVolume;
 class BaccDetectorComponent;
 class G4NistManager;
 class BaccMaterials;
-class XeNeuDTMessenger;
-class XeNeuDTMaterials;
+class XeNeuMigdalMessenger;
+class XeNeuMigdalMaterials;
 
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-class XeNeuDTDetector : public BaccDetector
+class XeNeuMigdalDetector : public BaccDetector
 {
 public:
-  XeNeuDTDetector( G4String, G4String );
-  ~XeNeuDTDetector();
+  XeNeuMigdalDetector( G4String, G4String );
+  ~XeNeuMigdalDetector();
   
   void BuildDetector();
   G4ThreeVector SetOrigin(BaccDetectorComponent *);
   void InitializeDetector();
-  void SetXeNeuDDShielding( G4bool val ) { ddShieldingOn = val; }
-  void SetXeNeuDTShielding( G4bool val ) { dtShieldingOn = val; } 
+  void SetXeNeuMigdal_DDShielding( G4bool val ) { ddShieldingOn = val; }
+  void SetXeNeuMigdal_DTShielding( G4bool val ) { dtShieldingOn = val; } 
   //  Registration methods below
   //
-  G4bool GetXeNeuDDShielding() { return ddShieldingOn; }
-  G4bool GetXeNeuDTShielding() { return dtShieldingOn; }  
+  G4bool GetXeNeuMigdal_DDShielding() { return ddShieldingOn; }
+  G4bool GetXeNeuMigdal_DTShielding() { return dtShieldingOn; }  
 private:
-  XeNeuDTMessenger *XeNeumessenger;
-  XeNeuDTMaterials *XeNeumaterials;
+  XeNeuMigdalMessenger *XeNeumessenger;
+  XeNeuMigdalMaterials *XeNeumaterials;
   G4NistManager *NISTmaterials;
   BaccMaterials *BACCmaterials;
   

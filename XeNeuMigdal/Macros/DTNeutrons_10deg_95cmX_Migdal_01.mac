@@ -71,12 +71,12 @@
 #/Bacc/randomSeed 0
 
 # Select the kind of detector to use
-/XeNeuDT/ddShieldingOn true
-/XeNeuDT/dtShieldingOn false
+/XeNeuMigdal/ddShieldingOn true
+/XeNeuMigdal/dtShieldingOn false
 #/Bacc/detector/select simpleExample
 #/Bacc/detector/select complexExample
 #/Bacc/detector/select LLNLSinglePhase
-/Bacc/detector/select XeNeuDTDetector
+/Bacc/detector/select XeNeuMigdalDetector
 #/XeNeu/ddShieldingOn true
 
 # Update geometry

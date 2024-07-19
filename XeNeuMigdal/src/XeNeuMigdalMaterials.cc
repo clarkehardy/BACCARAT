@@ -23,16 +23,16 @@
 //
 //	Project-specific includes
 //
-#include "XeNeuDTMaterials.hh"
+#include "XeNeuMigdalMaterials.hh"
 
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-//					XeNeuDTMaterials()
+//					XeNeuMigdalMaterials()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-XeNeuDTMaterials *XeNeuDTMaterials::XeNeumaterials = 0;
-XeNeuDTMaterials::XeNeuDTMaterials()
+XeNeuMigdalMaterials *XeNeuMigdalMaterials::XeNeumaterials = 0;
+XeNeuMigdalMaterials::XeNeuMigdalMaterials()
 {
   if(XeNeumaterials){
-    G4cerr<<"XeNeuDTMaterials is a singleton:: an instance already exists!"<<G4endl;
+    G4cerr<<"XeNeuMigdalMaterials is a singleton:: an instance already exists!"<<G4endl;
     //    delete XeNeumaterials;
     exit(1);
   }  
@@ -44,9 +44,9 @@ XeNeuDTMaterials::XeNeuDTMaterials()
 }
 
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-//					~XeNeuDTMaterials()
+//					~XeNeuMigdalMaterials()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-XeNeuDTMaterials::~XeNeuDTMaterials()
+XeNeuMigdalMaterials::~XeNeuMigdalMaterials()
 {
 
   //delete all materials
@@ -95,7 +95,7 @@ XeNeuDTMaterials::~XeNeuDTMaterials()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //					GetInstance()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-XeNeuDTMaterials *XeNeuDTMaterials::GetInstance()
+XeNeuMigdalMaterials *XeNeuMigdalMaterials::GetInstance()
 {
   return XeNeumaterials;
 }
@@ -103,7 +103,7 @@ XeNeuDTMaterials *XeNeuDTMaterials::GetInstance()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //				   GetMaterialByName()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-G4Material *XeNeuDTMaterials::GetMaterialByName(G4String mat_name)
+G4Material *XeNeuMigdalMaterials::GetMaterialByName(G4String mat_name)
 {
   for (material_map::iterator it=materials.begin(); it!=materials.end(); it++){
     if(it->first == mat_name) return it->second;
@@ -114,7 +114,7 @@ G4Material *XeNeuDTMaterials::GetMaterialByName(G4String mat_name)
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //				   GetVisAttributesByName()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-G4VisAttributes *XeNeuDTMaterials::GetVisAttributesByName(G4String mat_name)
+G4VisAttributes *XeNeuMigdalMaterials::GetVisAttributesByName(G4String mat_name)
 {
   for (vis_map::iterator it=visattributes.begin(); it!=visattributes.end(); it++){
     if(it->first == mat_name) return it->second;
@@ -125,7 +125,7 @@ G4VisAttributes *XeNeuDTMaterials::GetVisAttributesByName(G4String mat_name)
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //				   GetPropertiesTableByName()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-// G4MaterialPropertiesTable *XeNeuDTMaterials::GetPropertiesTableByName(G4String mat_name)
+// G4MaterialPropertiesTable *XeNeuMigdalMaterials::GetPropertiesTableByName(G4String mat_name)
 // {
 //   for (property_map::iterator it=properties.begin(); it!=properties.end(); it++){
 //     if(it->first == mat_name) return it->second;
@@ -136,7 +136,7 @@ G4VisAttributes *XeNeuDTMaterials::GetVisAttributesByName(G4String mat_name)
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //				   GetOpticalSurfaceByName()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-G4OpticalSurface *XeNeuDTMaterials::GetOpticalSurfaceByName(G4String optical_name)
+G4OpticalSurface *XeNeuMigdalMaterials::GetOpticalSurfaceByName(G4String optical_name)
 {
   for (optical_map::iterator it=opticals.begin(); it!=opticals.end(); it++){
     if(it->first == optical_name) return it->second;
@@ -145,7 +145,7 @@ G4OpticalSurface *XeNeuDTMaterials::GetOpticalSurfaceByName(G4String optical_nam
 }
 
 
-void XeNeuDTMaterials::CreateMaterials()
+void XeNeuMigdalMaterials::CreateMaterials()
 {
   //
   //	Isotopes
@@ -376,7 +376,7 @@ void XeNeuDTMaterials::CreateMaterials()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //					CreateOpticalSurfaces()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-void XeNeuDTMaterials::CreateOpticalSurfaces()
+void XeNeuMigdalMaterials::CreateOpticalSurfaces()
 {
 	
 }
@@ -384,7 +384,7 @@ void XeNeuDTMaterials::CreateOpticalSurfaces()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //					CreateVisualAttributes()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-void XeNeuDTMaterials::CreateVisualAttributes()
+void XeNeuMigdalMaterials::CreateVisualAttributes()
 {
 
   G4VisAttributes * vis_ = NULL;

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////
 //                                                  //
-//  XeNeuDT_LSDetector.cc                             //
+//  XeNeuMigdal_LSDetector.cc                             //
 //                                                  //
 //  This is the class implementation for the XeNeu  //
 //  xenon detector, for use in the LLNL xenon       //
@@ -52,7 +52,7 @@
 //
 //	LZSystemTest includes
 //
-#include "XeNeuDT_LSDetector.hh"
+#include "XeNeuMigdal_LSDetector.hh"
 //
 //		Definitions
 //
@@ -62,9 +62,9 @@ using namespace std;
 
 
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-//				XeNeuDT_LSDetector
+//				XeNeuMigdal_LSDetector
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-XeNeuDT_LSDetector::XeNeuDT_LSDetector(int det_num)
+XeNeuMigdal_LSDetector::XeNeuMigdal_LSDetector(int det_num)
 {
 
   double detector_radius = 2. * 2.54 * cm;
@@ -130,6 +130,6 @@ XeNeuDT_LSDetector::XeNeuDT_LSDetector(int det_num)
 }
 
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-//				~XeNeuDT_LSDetector
+//				~XeNeuMigdal_LSDetector
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-XeNeuDT_LSDetector::~XeNeuDT_LSDetector(){}
+XeNeuMigdal_LSDetector::~XeNeuMigdal_LSDetector(){}

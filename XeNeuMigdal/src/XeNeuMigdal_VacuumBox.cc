@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////
 //                                                  //
-//  XeNeuDT_VacuumBox.cc                             //
+//  XeNeuMigdal_VacuumBox.cc                             //
 //                                                  //
 //  This is the class implementation for the XeNeu  //
 //  xenon detector, for use in the LLNL xenon       //
@@ -51,7 +51,7 @@
 //
 //	LZSystemTest includes
 //
-#include "XeNeuDT_VacuumBox.hh"
+#include "XeNeuMigdal_VacuumBox.hh"
 //
 //		Definitions
 //
@@ -63,7 +63,7 @@ using namespace std;
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //				LZSystemTestActiveLXeRegion
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-XeNeuDT_VacuumBox::XeNeuDT_VacuumBox()
+XeNeuMigdal_VacuumBox::XeNeuMigdal_VacuumBox()
 {
 
 
@@ -160,6 +160,6 @@ XeNeuDT_VacuumBox::XeNeuDT_VacuumBox()
 }
 
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-//				~XeNeuDT_VacuumBox
+//				~XeNeuMigdal_VacuumBox
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-XeNeuDT_VacuumBox::~XeNeuDT_VacuumBox(){}
+XeNeuMigdal_VacuumBox::~XeNeuMigdal_VacuumBox(){}

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////
 //                                                  //
-//  XeNeuDT_XeDetector.cc                             //
+//  XeNeuMigdal_XeDetector.cc                             //
 //                                                  //
 //  This is the class implementation for the XeNeu  //
 //  xenon detector, for use in the LLNL xenon       //
@@ -55,16 +55,16 @@
 //
 //	LZSystemTest includes
 //
-#include "XeNeuDT_XeDetector.hh"
+#include "XeNeuMigdal_XeDetector.hh"
 #include "XeNeu_PMTCage.hh"
-#include "XeNeuDT_XeDetectorParameters.hh"
-#include "XeNeuDTMessenger.hh"
-#include "XeNeuDTMaterials.hh"
+#include "XeNeuMigdal_XeDetectorParameters.hh"
+#include "XeNeuMigdalMessenger.hh"
+#include "XeNeuMigdalMaterials.hh"
 //
 //		Definitions
 //
 using namespace std;
-using namespace XeNeuDTDetectorParameters;
+using namespace XeNeuMigdalDetectorParameters;
 
 #define PI 3.14159265358979312
 
@@ -72,7 +72,7 @@ using namespace XeNeuDTDetectorParameters;
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //				LZSystemTestActiveLXeRegion
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-XeNeuDT_XeDetector::XeNeuDT_XeDetector()
+XeNeuMigdal_XeDetector::XeNeuMigdal_XeDetector()
 {
 
     //	Get the BaccMaterials pointer
@@ -759,6 +759,6 @@ BaccDetectorComponent * Teflon_BelowCath_obj = new BaccDetectorComponent(0,
 }
 
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-//				~XeNeuDT_XeDetector
+//				~XeNeuMigdal_XeDetector
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-XeNeuDT_XeDetector::~XeNeuDT_XeDetector(){}
+XeNeuMigdal_XeDetector::~XeNeuMigdal_XeDetector(){}

@@ -9,8 +9,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef XeNeuDTMaterials_HH
-#define XeNeuDTMaterials_HH 1
+#ifndef XeNeuMigdalMaterials_HH
+#define XeNeuMigdalMaterials_HH 1
 
 //
 //	c++ includes
@@ -36,13 +36,13 @@ typedef std::map<G4String, G4VisAttributes*> vis_map;
 typedef std::map<G4String, G4OpticalSurface*> optical_map;
 
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-class XeNeuDTMaterials
+class XeNeuMigdalMaterials
 {
 public:
-  XeNeuDTMaterials();
-  ~XeNeuDTMaterials();
+  XeNeuMigdalMaterials();
+  ~XeNeuMigdalMaterials();
   
-  static XeNeuDTMaterials *GetInstance();
+  static XeNeuMigdalMaterials *GetInstance();
   
   G4Material *GetMaterialByName(G4String);
   G4VisAttributes *GetVisAttributesByName(G4String);
@@ -71,7 +71,7 @@ public:
 
 private:
   
-  static XeNeuDTMaterials *XeNeumaterials;
+  static XeNeuMigdalMaterials *XeNeumaterials;
   
   material_map materials;
   //  property_map properties;

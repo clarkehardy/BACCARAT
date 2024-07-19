@@ -29,53 +29,53 @@
 //
 // Project-specific includes
 //
-#include "XeNeuDTMessenger.hh"
-#include "XeNeuDTDetector.hh"
+#include "XeNeuMigdalMessenger.hh"
+#include "XeNeuMigdalDetector.hh"
 
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //					Messenger()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-XeNeuDTMessenger::XeNeuDTMessenger( XeNeuDTDetector *Det )
+XeNeuMigdalMessenger::XeNeuMigdalMessenger( XeNeuMigdalDetector *Det )
   : XeNeudetector( Det )
 {
   //  Set up the directory
-  XeNeuDir = new G4UIdirectory( "/XeNeuDT/" );
-  XeNeuDir->SetGuidance( "All XeNeuDT project commands are contained under /XeNeuDT/" );
+  XeNeuDir = new G4UIdirectory( "/XeNeuMigdal/" );
+  XeNeuDir->SetGuidance( "All XeNeuMigdal project commands are contained under /XeNeuMigdal/" );
 
-  XeNeuDDShieldingCommand = new G4UIcmdWithABool("/XeNeuDT/ddShieldingOn", this);
-  XeNeuDDShieldingCommand->SetGuidance("Turns the dd shielding geometry on or off.");
-  XeNeuDDShieldingCommand->SetGuidance(" The default choice is false." );
-  XeNeuDDShieldingCommand->AvailableForStates( G4State_PreInit, G4State_Idle );
+  XeNeuMigdal_DDShieldingCommand = new G4UIcmdWithABool("/XeNeuMigdal/ddShieldingOn", this);
+  XeNeuMigdal_DDShieldingCommand->SetGuidance("Turns the dd shielding geometry on or off.");
+  XeNeuMigdal_DDShieldingCommand->SetGuidance(" The default choice is false." );
+  XeNeuMigdal_DDShieldingCommand->AvailableForStates( G4State_PreInit, G4State_Idle );
 
-  XeNeuDTShieldingCommand = new G4UIcmdWithABool("/XeNeuDT/dtShieldingOn", this);
-  XeNeuDTShieldingCommand->SetGuidance("Turns the dt shielding geometry on or off.");
-  XeNeuDTShieldingCommand->SetGuidance(" The default choice is false." );
-  XeNeuDTShieldingCommand->AvailableForStates( G4State_PreInit, G4State_Idle ); 
+  XeNeuMigdal_DTShieldingCommand = new G4UIcmdWithABool("/XeNeuMigdal/dtShieldingOn", this);
+  XeNeuMigdal_DTShieldingCommand->SetGuidance("Turns the dt shielding geometry on or off.");
+  XeNeuMigdal_DTShieldingCommand->SetGuidance(" The default choice is false." );
+  XeNeuMigdal_DTShieldingCommand->AvailableForStates( G4State_PreInit, G4State_Idle ); 
 }
 
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //					~Messenger()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-XeNeuDTMessenger::~XeNeuDTMessenger()
+XeNeuMigdalMessenger::~XeNeuMigdalMessenger()
 {
   //delete everything that you declared with new
   delete XeNeuDir;
-  delete XeNeuDDShieldingCommand;
-  delete XeNeuDTShieldingCommand;
+  delete XeNeuMigdal_DDShieldingCommand;
+  delete XeNeuMigdal_DTShieldingCommand;
 }
 
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //					SetNewValue()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-void XeNeuDTMessenger::SetNewValue( G4UIcommand *command, G4String newValue )
+void XeNeuMigdalMessenger::SetNewValue( G4UIcommand *command, G4String newValue )
 {
   
-   if( command == XeNeuDDShieldingCommand ){
-      XeNeudetector->SetXeNeuDDShielding( XeNeuDDShieldingCommand->GetNewBoolValue(newValue) );
+   if( command == XeNeuMigdal_DDShieldingCommand ){
+      XeNeudetector->SetXeNeuMigdal_DDShielding( XeNeuMigdal_DDShieldingCommand->GetNewBoolValue(newValue) );
    }
 
-   if( command == XeNeuDTShieldingCommand ){
-      XeNeudetector->SetXeNeuDTShielding( XeNeuDTShieldingCommand->GetNewBoolValue(newValue) ); 
+   if( command == XeNeuMigdal_DTShieldingCommand ){
+      XeNeudetector->SetXeNeuMigdal_DTShielding( XeNeuMigdal_DTShieldingCommand->GetNewBoolValue(newValue) ); 
    }
 }
 

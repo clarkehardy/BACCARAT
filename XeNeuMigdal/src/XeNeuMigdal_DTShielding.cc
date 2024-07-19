@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////
 //                                                  //
-//  XeNeu_DTShielding.cc                             //
+//  XeNeuMigdal_DTShielding.cc                             //
 //                                                  //
 //  This is the class implementation for the XeNeu  //
 //  xenon detector, for use in the LLNL xenon       //
@@ -53,9 +53,9 @@
 //	LZSystemTest includes
 //
 //#include "XeNeu_XeDetectorParameters.hh"
-#include "XeNeu_DTShielding.hh"
-#include "XeNeuDTMaterials.hh"
-#include "XeNeuDTMessenger.hh"
+#include "XeNeuMigdal_DTShielding.hh"
+#include "XeNeuMigdalMaterials.hh"
+#include "XeNeuMigdalMessenger.hh"
 //
 //		Definitions
 //
@@ -67,7 +67,7 @@ using namespace std;
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //				LZSystemTestActiveLXeRegion
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-XeNeu_DTShielding::XeNeu_DTShielding()
+XeNeuMigdal_DTShielding::XeNeuMigdal_DTShielding()
 {
 
   double water_tank_radius = 93.98 * cm;
@@ -93,7 +93,7 @@ XeNeu_DTShielding::XeNeu_DTShielding()
 
     //	Get the BaccMaterials pointer
     BACCmaterials = BaccMaterials::GetMaterials();
-    XeNeumaterials = XeNeuDTMaterials::GetInstance();
+    XeNeumaterials = XeNeuMigdalMaterials::GetInstance();
 
  // Create the volume that the DT shielding will occupy (for now I have created a 5x5x5m box to represent the room)
   //G4Box * full_shield_assembly_box = new G4Box("full_shield_assembly_box",Dimension_of_World+50*cm,Dimension_of_World+50*cm,Dimension_of_World+50*cm);
@@ -339,6 +339,6 @@ BaccDetectorComponent * LeadOutside_Right_object = new BaccDetectorComponent(0,G
 }
 
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-//				~XeNeu_DTShielding
+//				~XeNeuMigdal_DTShielding
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-XeNeu_DTShielding::~XeNeu_DTShielding(){}
+XeNeuMigdal_DTShielding::~XeNeuMigdal_DTShielding(){}

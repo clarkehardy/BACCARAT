@@ -49,20 +49,20 @@
 //
 //      Project includes
 //
-#include "XeNeuDTDetector.hh"
-#include "XeNeuDTMaterials.hh"
-#include "XeNeuDTMessenger.hh"
+#include "XeNeuMigdalDetector.hh"
+#include "XeNeuMigdalMaterials.hh"
+#include "XeNeuMigdalMessenger.hh"
 //#include "XeNeu_XeDetectorParameters.hh"
-#include "XeNeuDT_XeDetector.hh"
+#include "XeNeuMigdal_XeDetector.hh"
 #include "XeNeu_PMTCage.hh"
-#include "XeNeuDT_LSDetector.hh"
+#include "XeNeuMigdal_LSDetector.hh"
 #include "XeNeu_DDCastle.hh"
 #include "XeNeu_DDBoratedPoly_1.hh"
 #include "XeNeu_DDBoratedPoly_2.hh"
-#include "XeNeuDT_VacuumBox.hh"
+#include "XeNeuMigdal_VacuumBox.hh"
 #include "XeNeu_TUNLShielding.hh"
-#include "XeNeu_DTShielding.hh"
-#include "XeNeu_DDShieldingMigdal.hh"
+#include "XeNeuMigdal_DTShielding.hh"
+#include "XeNeuMigdal_DDShielding.hh"
 //#include "XeNeu_MaterialTest.hh"
 //#include "XeNeu_Sphere.hh"
 #include "R8520PMT.hh"
@@ -78,18 +78,18 @@ using namespace std;
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //                          Detector Constructor
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-XeNeuDTDetector::XeNeuDTDetector( G4String detName,
+XeNeuMigdalDetector::XeNeuMigdalDetector( G4String detName,
 			G4String outVolName )
 {
   detectorName = detName;
   outermostVolumeName = outVolName;
   
-  XeNeumessenger = new XeNeuDTMessenger( this );
+  XeNeumessenger = new XeNeuMigdalMessenger( this );
   
-  //***DO NOT*** create another instance of XeNeuDTMaterials anywhere else!
-  //Just refer to it using XeNeuDTMaterials::GetInstance().
-  XeNeumaterials = XeNeuDTMaterials::GetInstance();
-  if(!XeNeumaterials) XeNeumaterials = new XeNeuDTMaterials();
+  //***DO NOT*** create another instance of XeNeuMigdalMaterials anywhere else!
+  //Just refer to it using XeNeuMigdalMaterials::GetInstance().
+  XeNeumaterials = XeNeuMigdalMaterials::GetInstance();
+  if(!XeNeumaterials) XeNeumaterials = new XeNeuMigdalMaterials();
   //get the Bacc Materials and Nist materials
   NISTmaterials = G4NistManager::Instance();
   BACCmaterials = BaccMaterials::GetMaterials();
@@ -98,7 +98,7 @@ XeNeuDTDetector::XeNeuDTDetector( G4String detName,
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //                          Detector Destructor
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-XeNeuDTDetector::~XeNeuDTDetector()
+XeNeuMigdalDetector::~XeNeuMigdalDetector()
 {
   if(XeNeumessenger) delete XeNeumessenger;
   if(XeNeumaterials) delete XeNeumaterials;
@@ -107,7 +107,7 @@ XeNeuDTDetector::~XeNeuDTDetector()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //                              InitializeDetector()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-void XeNeuDTDetector::InitializeDetector(){
+void XeNeuMigdalDetector::InitializeDetector(){
   
   //if you need to access BaccManager
   BaccManager *BACCmanager = BaccManager::GetManager();
@@ -119,7 +119,7 @@ void XeNeuDTDetector::InitializeDetector(){
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //                              BuildDetector()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-void XeNeuDTDetector::BuildDetector(){
+void XeNeuMigdalDetector::BuildDetector(){
   InitializeDetector();
 
 //XeNeu_Sphere * Sphere_obj = new XeNeu_Sphere();
@@ -137,11 +137,11 @@ void XeNeuDTDetector::BuildDetector(){
 //  AluminumTest * Aluminum_obj = new AluminumTest();
 //  logicalVolume = Aluminum_obj->GetLogicalVolume();
 
-//	XeNeu_DTShielding * dt_shield_obj = new XeNeu_DTShielding();
+//	XeNeuMigdal_DTShielding * dt_shield_obj = new XeNeuMigdal_DTShielding();
 //	logicalVolume = dt_shield_obj->GetLogicalVolume();
 
 //this is how you access your material definition
-//  G4cout<<"XeNeuDTMaterials example"<<G4endl;
+//  G4cout<<"XeNeuMigdalMaterials example"<<G4endl;
 //  G4cout<<XeNeumaterials->GetMaterialByName("liquidXe")<<G4endl<<G4endl;
  
   //Alternatively you can use the nist material database
@@ -170,9 +170,9 @@ void XeNeuDTDetector::BuildDetector(){
 // Create the DT Shielding object
 if( dtShieldingOn ) {
 
-  XeNeu_DTShielding * dt_shield_obj = new XeNeu_DTShielding();  
- //XeNeu_DDShieldingMigdal * dt_shield_obj = new XeNeu_DDShieldingMigdal();
-// ShieldingVolume = dt_shield_obj->GetLogicalVolume();
+  XeNeuMigdal_DTShielding * dt_shield_obj = new XeNeuMigdal_DTShielding();  
+  //XeNeuMigdal_DDShielding * dt_shield_obj = new XeNeuMigdal_DDShielding();
+  // ShieldingVolume = dt_shield_obj->GetLogicalVolume();
   // double source_detector_distance = 1.8236 * m; // Value in DT recoil measurement
   double source_detector_distance = 1.5236 * m;
  
@@ -182,9 +182,7 @@ if( dtShieldingOn ) {
                                             "dt_shield",
                                             logicalVolume,
                                             0,0,true);
-  bool is_first_DT_Sept2021 = false; 
-  bool dt_Migdal_Run_RandD = false;
-  bool dt_Migdal_Run_14det_17deg = true;
+
 
   G4Box * floor_box = new G4Box("floor_box",5.*m, 5.*m, 0.5*m);
   G4LogicalVolume * floor_log = new G4LogicalVolume( floor_box, BACCmaterials->PortlandConcrete(), "floor_log" );
@@ -194,258 +192,49 @@ if( dtShieldingOn ) {
                                                  floor_log,
                                                  "concrete_floor",
                                                  logicalVolume, 0,0,true); 
-
-
-
-  if( is_first_DT_Sept2021 ) { 
-   
-      // Build the liquid scintillator detectors
-      // 180 deg is straight in front of the DT Beam 
-      double d_LS1 =  54.53 * cm + 3.94 * 2.54 * cm + 4.5 * 2.54 *cm;
-      double d_LS2 = 18.89*cm + 3.94 * 2.54 * cm + 4.5 * 2.54 *cm;//11.43 added (probably length of inner xenon to OD)
-      double d_LS3 = 25.4*cm + 3.94 * 2.54 * cm + 4.5 * 2.54 *cm;//11.43 added (probably length of LS detector?)
-      double d_LS4 = 13.66*cm +3.94 * 2.54 * cm + 4.5 * 2.54 *cm;//11.43 added (probably length of LS detector?)
-      double d_LS5 =  7.315*cm + 3.94 * 2.54 * cm + 4.5 * 2.54 *cm;//11.43 added (probably length of LS detector?)
-      double d_LS6 =  25.15*cm +3.94 * 2.54 * cm + 4.5 * 2.54 *cm;//11.43 added (probably length of LS detector?)
-      double d_LS7 = 15.78*cm + 3.94 * 2.54 * cm + 4.5 * 2.54 *cm ;//11.43 added (probably length of LS detector?)
-      double d_LS8 = 14.33*cm + 3.94 * 2.54 * cm + 4.5 * 2.54 *cm;//11.43 added (probably length of LS detector?)
-
-      double backingDetectorAngle_1 = 17.*deg;
-      double backingDetectorAngle_2 = 92.*deg;
-      double backingDetectorAngle_3 = 50.*deg;
-      double backingDetectorAngle_4 = -67.*deg;
-      double backingDetectorAngle_5 = -115.*deg;
-      double backingDetectorAngle_6 = -36.*deg;
-      double backingDetectorAngle_7 = 140.*deg;
-      double backingDetectorAngle_8 = -162.*deg;
-
-      G4RotationMatrix * rotm_ls_1 = new G4RotationMatrix();
-      rotm_ls_1->rotateX(90.*deg);
-      rotm_ls_1->rotateY(90.*deg + backingDetectorAngle_1);
-    
-      G4RotationMatrix * rotm_ls_2 = new G4RotationMatrix();
-      rotm_ls_2->rotateX(90.*deg);
-      rotm_ls_2->rotateY(90.*deg + backingDetectorAngle_2);
-
-      G4RotationMatrix * rotm_ls_3 = new G4RotationMatrix();
-      rotm_ls_3->rotateX(90.*deg);
-      rotm_ls_3->rotateY(90.*deg + backingDetectorAngle_3);
-
-      G4RotationMatrix * rotm_ls_4 = new G4RotationMatrix();
-      rotm_ls_4->rotateX(90.*deg);
-      rotm_ls_4->rotateY(90.*deg + backingDetectorAngle_4);
-
-      G4RotationMatrix * rotm_ls_5 = new G4RotationMatrix();
-      rotm_ls_5->rotateX(90.*deg);
-      rotm_ls_5->rotateY(90.*deg + backingDetectorAngle_5);
-
-      G4RotationMatrix * rotm_ls_6 = new G4RotationMatrix();
-      rotm_ls_6->rotateX(90.*deg);
-      rotm_ls_6->rotateY(90.*deg + backingDetectorAngle_6);
-
-      G4RotationMatrix * rotm_ls_7 = new G4RotationMatrix();
-      rotm_ls_7->rotateX(90.*deg);
-      rotm_ls_7->rotateY(90.*deg + backingDetectorAngle_7);
-
-      G4RotationMatrix * rotm_ls_8 = new G4RotationMatrix();
-      rotm_ls_8->rotateX(90.*deg);
-      rotm_ls_8->rotateY((90.*deg + backingDetectorAngle_8));
-
-      double PI = 3.1415927;
-
-      double bdAngRad_1 = backingDetectorAngle_1/deg/180. * PI;
-      double bdAngRad_2 = backingDetectorAngle_2/deg/180. * PI;
-      double bdAngRad_3 = backingDetectorAngle_3/deg/180. * PI;
-      double bdAngRad_4 = backingDetectorAngle_4/deg/180. * PI;
-      double bdAngRad_5 = backingDetectorAngle_5/deg/180. * PI;
-      double bdAngRad_6 = backingDetectorAngle_6/deg/180. * PI;
-      double bdAngRad_7 = backingDetectorAngle_7/deg/180. * PI;
-      double bdAngRad_8 = backingDetectorAngle_8/deg/180. * PI;
  
-      XeNeuDT_LSDetector * ls_detector_1_obj = new XeNeuDT_LSDetector(1);
-      BaccDetectorComponent * ls_detector_1 = new BaccDetectorComponent(rotm_ls_1,
-                                                           G4ThreeVector(-d_LS1*cos(bdAngRad_1),-d_LS1*sin(bdAngRad_1),0.),
-                                                           ls_detector_1_obj->GetLogicalVolume(),
-                                                           "ls_detector_1",
-                                                           logicalVolume,
-                                                           0,0,true);
- 
-      XeNeuDT_LSDetector * ls_detector_2_obj = new XeNeuDT_LSDetector(2);
-      BaccDetectorComponent * ls_detector_2 = new BaccDetectorComponent(rotm_ls_2,
-                                                           G4ThreeVector(-d_LS2*cos(bdAngRad_2),-d_LS2*sin(bdAngRad_2),0.),
-                                                           ls_detector_2_obj->GetLogicalVolume(),
-                                                           "ls_detector_2",
-                                                           logicalVolume,
-                                                           0,0,true);
+  // Commented out for real DT Migdal run August 2022 
+  //double scattering_angle = 17.*deg;
+  //double ls_Distance = 1. * m;
+  //double ls_DistanceX = - ls_Distance * cos( scattering_angle );
+  
+  // Hardcoded dimension of true Migdal Run August 2022:
+  // 95cm from center of TPC to the front faces of the LS detectors
+  double ls_DistanceX = -1.*(95.0 * cm + 4.5 * 2.54*cm); // Distance for DT generator
+  //double ls_DistanceX = -1.*(34.0 * cm + 4.5 * 2.54*cm); // Distance for DD generator
+  double ls_ring_radius = 26.5 * cm;
 
-      XeNeuDT_LSDetector * ls_detector_3_obj = new XeNeuDT_LSDetector(3);
-      BaccDetectorComponent * ls_detector_3 = new BaccDetectorComponent(rotm_ls_3,
-                                                           G4ThreeVector(-d_LS3*cos(bdAngRad_3),-d_LS3*sin(bdAngRad_3),0.),
-                                                           ls_detector_3_obj->GetLogicalVolume(),
-                                                           "ls_detector_3",
-                                                           logicalVolume,
-                                                           0,0,true);
+  G4RotationMatrix * rotm_ls = new G4RotationMatrix();
+  rotm_ls->rotateX(90.*deg);
+  rotm_ls->rotateY(90.*deg);
 
-      XeNeuDT_LSDetector * ls_detector_4_obj = new XeNeuDT_LSDetector(4);
-      BaccDetectorComponent * ls_detector_4 = new BaccDetectorComponent(rotm_ls_4,
-                                                           G4ThreeVector(-d_LS4*cos(bdAngRad_4),-d_LS4*sin(bdAngRad_4),0.),
-                                                           ls_detector_4_obj->GetLogicalVolume(),
-                                                           "ls_detector_4",
-                                                           logicalVolume,
-                                                           0,0,true);
+  BaccDetectorComponent * ls_detectors[14];
+  XeNeuMigdal_LSDetector * ls_det_temp;
 
-
-      XeNeuDT_LSDetector * ls_detector_5_obj = new XeNeuDT_LSDetector(5);
-      BaccDetectorComponent * ls_detector_5 = new BaccDetectorComponent(rotm_ls_5,
-                                                           G4ThreeVector(-d_LS5*cos(bdAngRad_5),-d_LS5*sin(bdAngRad_5),0.),
-                                                           ls_detector_5_obj->GetLogicalVolume(),
-                                                           "ls_detector_5",
-                                                           logicalVolume,
-                                                           0,0,true);
-
-      XeNeuDT_LSDetector * ls_detector_6_obj = new XeNeuDT_LSDetector(6);
-      BaccDetectorComponent * ls_detector_6 = new BaccDetectorComponent(rotm_ls_6,
-                                                           G4ThreeVector(-d_LS6*cos(bdAngRad_6),-d_LS6*sin(bdAngRad_6),0.),
-                                                           ls_detector_6_obj->GetLogicalVolume(),
-                                                           "ls_detector_6",
-                                                           logicalVolume,
-                                                           0,0,true);
-
-      XeNeuDT_LSDetector * ls_detector_7_obj = new XeNeuDT_LSDetector(7);
-      BaccDetectorComponent * ls_detector_7 = new BaccDetectorComponent(rotm_ls_7,
-                                                           G4ThreeVector(- d_LS7*cos(bdAngRad_7), -d_LS7*sin(bdAngRad_7),0.),
-                                                           ls_detector_7_obj->GetLogicalVolume(),
-                                                           "ls_detector_7",
-                                                           logicalVolume,
-                                                           0,0,true);
-
-      XeNeuDT_LSDetector * ls_detector_8_obj = new XeNeuDT_LSDetector(8);
-      BaccDetectorComponent * ls_detector_8 = new BaccDetectorComponent(rotm_ls_8,
-                                                           G4ThreeVector(-(d_LS8)*cos(bdAngRad_8),-(d_LS8)*sin(bdAngRad_8),0.),
-                                                           ls_detector_8_obj->GetLogicalVolume(),
-                                                           "ls_detector_8",
-                                                           logicalVolume,
-                                                           0,0,true);
-
-   } else if( dt_Migdal_Run_RandD ){
-
-      // Here we want to model an experiment where all the detectors are at the same angle.
-      // To start, I'll put two detectors at the 17deg, nominal distance, then 
-
-      double d_LS1 =  54.53 * cm + 3.94 * 2.54 * cm + 4.5 * 2.54 *cm;
-      d_LS1 = d_LS1 * 1.5;
-
-      double backingDetectorAngle_1 = 17.*deg;
-
-      G4RotationMatrix * rotm_ls_1 = new G4RotationMatrix();
-      rotm_ls_1->rotateX(90.*deg);
-      rotm_ls_1->rotateY(90.*deg + backingDetectorAngle_1);
-
-      double PI = 3.1415927;
-      double bdAngRad_1 = backingDetectorAngle_1/deg/180. * PI;
-
-      XeNeuDT_LSDetector * ls_detector_1_obj = new XeNeuDT_LSDetector(1);
-
-      BaccDetectorComponent * ls_detector_1 = new BaccDetectorComponent(rotm_ls_1,
-                                                           G4ThreeVector(-d_LS1*cos(bdAngRad_1),-d_LS1*sin(bdAngRad_1),0.),
-                                                           ls_detector_1_obj->GetLogicalVolume(),
-                                                           "ls_detector_1",
-                                                           logicalVolume,
-                                                           0,0,true);
-      
-      // Detector 2 is at the same distance/angle as detector 1, 
-      // just at the opposite position in the horizontal plane.
-      G4RotationMatrix * rotm_ls_2 = new G4RotationMatrix();
-      rotm_ls_2->rotateX(90.*deg);
-      rotm_ls_2->rotateY(90.*deg - backingDetectorAngle_1);
-
-      XeNeuDT_LSDetector * ls_detector_2_obj = new XeNeuDT_LSDetector(2);
-
-      BaccDetectorComponent * ls_detector_2 = new BaccDetectorComponent(rotm_ls_2,
-                                                           G4ThreeVector(-d_LS1*cos(bdAngRad_1),d_LS1*sin(bdAngRad_1),0.),
-                                                           ls_detector_2_obj->GetLogicalVolume(),
-                                                           "ls_detector_2",
-                                                           logicalVolume,
-                                                           0,0,true);
-
-
-      // Detector 3 is above in the vertical plane.
-      G4RotationMatrix * rotm_ls_3 = new G4RotationMatrix();
-      rotm_ls_3->rotateY(90.*deg - backingDetectorAngle_1);
-      //rotm_ls_3->rotateX(90.*deg - backingDetectorAngle_1);
-
-      XeNeuDT_LSDetector * ls_detector_3_obj = new XeNeuDT_LSDetector(3);
-
-      BaccDetectorComponent * ls_detector_3 = new BaccDetectorComponent(rotm_ls_3,
-                                                           G4ThreeVector(-d_LS1*cos(bdAngRad_1),0.,d_LS1*sin(bdAngRad_1)),
-                                                           ls_detector_3_obj->GetLogicalVolume(),
-                                                           "ls_detector_3",
-                                                           logicalVolume,
-                                                           0,0,true);
-
-      // Detector 4 is above in the vertical plane.
-      G4RotationMatrix * rotm_ls_4 = new G4RotationMatrix();
-      rotm_ls_4->rotateY(90.*deg + backingDetectorAngle_1);
-      //rotm_ls_4->rotateX(90.*deg + backingDetectorAngle_1);
-
-      XeNeuDT_LSDetector * ls_detector_4_obj = new XeNeuDT_LSDetector(4);
-
-      BaccDetectorComponent * ls_detector_4 = new BaccDetectorComponent(rotm_ls_4,
-                                                           G4ThreeVector(-d_LS1*cos(bdAngRad_1),0.,-d_LS1*sin(bdAngRad_1)),
-                                                           ls_detector_4_obj->GetLogicalVolume(),
-                                                           "ls_detector_4",
-                                                           logicalVolume,
-                                                           0,0,true);
-
-
-   } else if( dt_Migdal_Run_14det_17deg ) {
- 
-      // Commented out for real DT Migdal run August 2022 
-      //double scattering_angle = 17.*deg;
-      //double ls_Distance = 1. * m;
-      //double ls_DistanceX = - ls_Distance * cos( scattering_angle );
-      
-      // Hardcoded dimension of true Migdal Run August 2022:
-      // 95cm from center of TPC to the front faces of the LS detectors
-      double ls_DistanceX = -1.*(95.0 * cm + 4.5 * 2.54*cm); // Distance for DT generator
-      //double ls_DistanceX = -1.*(34.0 * cm + 4.5 * 2.54*cm); // Distance for DD generator
-      double ls_ring_radius = 26.5 * cm;
-
-      G4RotationMatrix * rotm_ls = new G4RotationMatrix();
-      rotm_ls->rotateX(90.*deg);
-      rotm_ls->rotateY(90.*deg);
-
-      BaccDetectorComponent * ls_detectors[14];
-      XeNeuDT_LSDetector * ls_det_temp;
-
-      for(int i=0; i<14; i++){
-          //G4RotationMatrix * rotm = new G4RotationMatrix();
-          char detector_name[100];
-          sprintf(detector_name,"ls_detector_%d",i);
-          double ls_det_z_angle = 360.*deg / 14 * i;
-          ls_det_temp = new XeNeuDT_LSDetector(i);
-          ls_detectors[i] = new BaccDetectorComponent(rotm_ls,
-                                                      G4ThreeVector( ls_DistanceX,
-                                                                     ls_ring_radius * sin( ls_det_z_angle ),
-                                                                     ls_ring_radius * cos( ls_det_z_angle )),
-                                                      ls_det_temp->GetLogicalVolume(),
-                                                      detector_name,
-                                                      logicalVolume,
-                                                      0,0,true);
+  for(int i=0; i<14; i++){
+      //G4RotationMatrix * rotm = new G4RotationMatrix();
+      char detector_name[100];
+      sprintf(detector_name,"ls_detector_%d",i);
+      double ls_det_z_angle = 360.*deg / 14 * i;
+      ls_det_temp = new XeNeuMigdal_LSDetector(i);
+      ls_detectors[i] = new BaccDetectorComponent(rotm_ls,
+                                                  G4ThreeVector( ls_DistanceX,
+                                                                  ls_ring_radius * sin( ls_det_z_angle ),
+                                                                  ls_ring_radius * cos( ls_det_z_angle )),
+                                                  ls_det_temp->GetLogicalVolume(),
+                                                  detector_name,
+                                                  logicalVolume,
+                                                  0,0,true);
       }      
-
-
-   }
-
 
 } 
 if (ddShieldingOn) {
 
-  XeNeu_DDShieldingMigdal * dd_shield_obj = new XeNeu_DDShieldingMigdal();  
-  //XeNeu_DDShieldingMigdal * dt_shield_obj = new XeNeu_DDShieldingMigdal();
+  XeNeuMigdal_DDShielding * dd_shield_obj = new XeNeuMigdal_DDShielding();  
+  //XeNeuMigdal_DDShielding * dt_shield_obj = new XeNeuMigdal_DDShielding();
   // ShieldingVolume = dt_shield_obj->GetLogicalVolume();
   // double source_detector_distance = 1.8236 * m; // Value in DT recoil measurement
-  double source_detector_distance = 1.5236 * m; // 0.638 * m;
+  double source_detector_distance = 1.5236 * m;
  
   BaccDetectorComponent * dt_shield = new BaccDetectorComponent(0,
                                             G4ThreeVector(source_detector_distance,.3*m,0),
@@ -471,8 +260,8 @@ if (ddShieldingOn) {
   
   // Hardcoded dimension of true Migdal Run August 2022:
   // 95cm from center of TPC to the front faces of the LS detectors
-  //double ls_DistanceX = -1.*(95.0 * cm + 4.5 * 2.54*cm); // Distance for DT generator
-  double ls_DistanceX = -1.*(34.0 * cm + 4.5 * 2.54*cm); // Distance for DD generator
+  double ls_DistanceX = -1.*(95.0 * cm + 4.5 * 2.54*cm); // Distance for DT generator
+  //double ls_DistanceX = -1.*(34.0 * cm + 4.5 * 2.54*cm); // Distance for DD generator
   double ls_ring_radius = 26.5 * cm;
 
   G4RotationMatrix * rotm_ls = new G4RotationMatrix();
@@ -480,14 +269,14 @@ if (ddShieldingOn) {
   rotm_ls->rotateY(90.*deg);
 
   BaccDetectorComponent * ls_detectors[14];
-  XeNeuDT_LSDetector * ls_det_temp;
+  XeNeuMigdal_LSDetector * ls_det_temp;
 
   for(int i=0; i<14; i++){
       //G4RotationMatrix * rotm = new G4RotationMatrix();
       char detector_name[100];
       sprintf(detector_name,"ls_detector_%d",i);
       double ls_det_z_angle = 360.*deg / 14 * i;
-      ls_det_temp = new XeNeuDT_LSDetector(i);
+      ls_det_temp = new XeNeuMigdal_LSDetector(i);
       ls_detectors[i] = new BaccDetectorComponent(rotm_ls,
                                                   G4ThreeVector( ls_DistanceX,
                                                                   ls_ring_radius * sin( ls_det_z_angle ),
@@ -504,7 +293,7 @@ if (ddShieldingOn) {
    det_rot->rotateZ(0.*deg);
   double detector_Z = 1.*cm;
 // Build the liquid xenon detector and stuff
-  XeNeuDT_XeDetector * detector_obj = new XeNeuDT_XeDetector();
+  XeNeuMigdal_XeDetector * detector_obj = new XeNeuMigdal_XeDetector();
   BaccDetectorComponent * detector = new BaccDetectorComponent(det_rot, 
                                                        G4ThreeVector(0,0,detector_Z),
                                                        detector_obj->GetLogicalVolume(),
@@ -518,7 +307,7 @@ if (ddShieldingOn) {
   double vacuumBoxHalfHeight = 3. * 2.54 * cm; 
   double vacuumBoxHole_Y = (11. - 5.)*2.54 * cm;
 
-  XeNeuDT_VacuumBox * vacuum_box_obj = new XeNeuDT_VacuumBox();
+  XeNeuMigdal_VacuumBox * vacuum_box_obj = new XeNeuMigdal_VacuumBox();
   BaccDetectorComponent * vacuum_box = new BaccDetectorComponent(det_rot,
                                         G4ThreeVector(0.,
                                                       -vacuumBoxHole_Y,
@@ -763,7 +552,7 @@ if (ddShieldingOn) {
     
       double bdAngRad = backingDetectorAngle/deg/180. * PI;
     
-      XeNeuDT_LSDetector * ls_detector_obj = new XeNeuDT_LSDetector();
+      XeNeuMigdal_LSDetector * ls_detector_obj = new XeNeuMigdal_LSDetector();
       BaccDetectorComponent * ls_detector_1 = new BaccDetectorComponent(rotm_ls_1,
                                                            G4ThreeVector(d_LS*cos(bdAngRad),d_LS*sin(bdAngRad),0.),
                                                            ls_detector_obj->GetLogicalVolume(),
@@ -788,7 +577,7 @@ if (ddShieldingOn) {
                                                            logicalVolume,
                                                            0,0,true);
     
-      XeNeu_DDBoratedPoly_1 * b_poly_1_obj = new XeNeu_DDBoratedPoly_1();
+      XeNeuMigdal_DDBoratedPoly_1 * b_poly_1_obj = new XeNeuMigdal_DDBoratedPoly_1();
     
       double boratedPoly_1_X = -42.*cm + 8.*2.54*cm + (4*2.54*cm + 0.5*cm)/2. + 5.*cm;
       double boratedPoly_1_Y = -(27.*cm/2. + 3.75*2.54*cm);
@@ -800,7 +589,7 @@ if (ddShieldingOn) {
     
     
     
-      XeNeu_DDBoratedPoly_2 * b_poly_2_obj = new XeNeu_DDBoratedPoly_2();
+      XeNeuMigdal_DDBoratedPoly_2 * b_poly_2_obj = new XeNeuMigdal_DDBoratedPoly_2();
     
       double borated_poly_2_X = -42.*cm + 8.*2.54*cm + (2*2.54*cm + 1.*cm)/2.;
       double borated_poly_2_Y = 0.5*2.54*cm + 31.*cm/2.;
@@ -879,7 +668,7 @@ if (ddShieldingOn) {
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //                                      SetOrigin()
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-G4ThreeVector XeNeuDTDetector::SetOrigin(BaccDetectorComponent *ExpHall){
+G4ThreeVector XeNeuMigdalDetector::SetOrigin(BaccDetectorComponent *ExpHall){
   //you need to implement this function here
   return G4ThreeVector(0,0,0);
 }

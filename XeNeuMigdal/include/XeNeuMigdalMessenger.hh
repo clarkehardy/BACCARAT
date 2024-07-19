@@ -11,8 +11,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef XeNeuDTMessenger_HH
-#define XeNeuDTMessenger_HH 1
+#ifndef XeNeuMigdalMessenger_HH
+#define XeNeuMigdalMessenger_HH 1
 
 //
 //      GEANT4 includes
@@ -32,26 +32,26 @@ class G4UIcmdWithABool;
 //class G4UIcmdWithADoubleAndUnit;
 //class G4UicmdWithADouble;
 
-class XeNeuDTDetector;
+class XeNeuMigdalDetector;
 
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-class XeNeuDTMessenger : public G4UImessenger
+class XeNeuMigdalMessenger : public G4UImessenger
 {
 public:
-  XeNeuDTMessenger( XeNeuDTDetector* );
-  ~XeNeuDTMessenger();
+  XeNeuMigdalMessenger( XeNeuMigdalDetector* );
+  ~XeNeuMigdalMessenger();
   
   void SetNewValue( G4UIcommand*, G4String );
   
 private:
-  XeNeuDTDetector *XeNeudetector;
+  XeNeuMigdalDetector *XeNeudetector;
   
   //      The directory
   G4UIdirectory *XeNeuDir;
 
   // Declare the UI commands below
-  G4UIcmdWithABool * XeNeuDDShieldingCommand;
-  G4UIcmdWithABool * XeNeuDTShieldingCommand;  
+  G4UIcmdWithABool * XeNeuMigdal_DDShieldingCommand;
+  G4UIcmdWithABool * XeNeuMigdal_DTShieldingCommand;  
 };
 
 #endif

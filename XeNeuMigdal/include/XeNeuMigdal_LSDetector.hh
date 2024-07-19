@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////
 //                                                  //
-//  XeNeu_DTShielding.hh                //
+//  XeNeuMigdal_LSDetector.hh                //
 //                                                  //
 //  This is the class definition for the actve RF   //
 //  region of liquid xenon that is in the LZ        //
@@ -18,8 +18,8 @@
 ********************************************************************************
 */
 
-#ifndef XeNeu_DTShielding_HH
-#define XeNeu_DTShielding_HH 1
+#ifndef XeNeuMigdal_LSDetector_HH
+#define XeNeuMigdal_LSDetector_HH 1
 
 //
 //	GEANT4 includes
@@ -30,7 +30,7 @@
 //
 //	Project includes
 //
-#include "BaccDetectorComponent.hh"
+
 
 //
 //	Class forwarding
@@ -38,27 +38,25 @@
 
 class G4Material;
 class G4LogicalVolume;
-//class BaccDetectorComponent;
+class BaccDetectorComponent;
 class BaccMaterials;
-class XeNeuDTMessenger;
-class XeNeuDTMaterials;
 
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-class XeNeu_DTShielding
+class XeNeuMigdal_LSDetector
 {
     
 public:
   
-  XeNeu_DTShielding();
-  ~XeNeu_DTShielding();
+  XeNeuMigdal_LSDetector(int det_num);
+  ~XeNeuMigdal_LSDetector();
   
-  inline G4LogicalVolume *GetLogicalVolume() { return full_shield_assembly_log; }
+  inline G4LogicalVolume *GetLogicalVolume() { return lsDetectorVolume_log; }
   
 private:
   
   BaccMaterials *BACCmaterials;
-  XeNeuDTMaterials *XeNeumaterials;
-  G4LogicalVolume *full_shield_assembly_log;
+  
+  G4LogicalVolume *lsDetectorVolume_log;
 };
 
 #endif

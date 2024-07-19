@@ -1,7 +1,7 @@
 
 /////////////////////////////////////////////////////
 //                                                  //
-//  XeNeu_DDShieldingMigdal.cc                             //
+//  XeNeuMigdal_DDShielding.cc                             //
 //                                                  //
 //  This is the class implementation for the XeNeu  //
 //  xenon detector, for use in the LLNL xenon       //
@@ -53,14 +53,16 @@
 //      BACCARAT includes
 //
 #include "G4PVPlacement.hh"
+#include "BaccDetectorComponent.hh"
 
 //
 //	LZSystemTest includes
 //
 //#include "XeNeu_XeDetectorParameters.hh"
-#include "XeNeu_DDShieldingMigdal.hh"
+#include "XeNeuMigdal_DDShielding.hh"
 #include "G4NistManager.hh"
-#include "XeNeuDTMaterials.hh"
+#include "XeNeuMigdalMaterials.hh"
+#include "XeNeuMigdalMessenger.hh"
 //
 //		Definitions
 //
@@ -72,7 +74,7 @@ using namespace std;
 //------++++++------++++++------++++++------++++++------++++++------++++++------
 //				LZSystemTestActiveLXeRegion
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-XeNeu_DDShieldingMigdal::XeNeu_DDShieldingMigdal()
+XeNeuMigdal_DDShielding::XeNeuMigdal_DDShielding()
 {
 
   double DT_Shift_y_Position = -30* cm;
@@ -101,8 +103,8 @@ XeNeu_DDShieldingMigdal::XeNeu_DDShieldingMigdal()
   //	Get the Materials pointer
   G4NistManager * matman = G4NistManager::Instance();
   //Get the predefined materials
-  XeNeuDTMaterials *Xmat = XeNeuDTMaterials::GetInstance();
-  if(!Xmat) Xmat = new XeNeuDTMaterials();
+  XeNeuMigdalMaterials *Xmat = XeNeuMigdalMaterials::GetInstance();
+  if(!Xmat) Xmat = new XeNeuMigdalMaterials();
 
   // Create the volume that the DT shielding will occupy 
   G4Box * full_shield_assembly_box = new G4Box("full_shield_assembly_box",water_half_length_x + inch,water_half_width_y,water_half_height_z);
@@ -257,7 +259,8 @@ XeNeu_DDShieldingMigdal::XeNeu_DDShieldingMigdal()
 						       "Lead_Box_log");
   Lead_Box_log->SetVisAttributes(Xmat->GetVisAttributesByName("purple"));
   //Finally Create the Lead Box
-  new G4PVPlacement(0, G4ThreeVector(0,0,0), Lead_Box_log, "Lead_Box_object", Water_Tank_Shielding_log,0,0,0);
+  //new G4PVPlacement(0, G4ThreeVector(0,0,0), Lead_Box_log, "Lead_Box_object", Water_Tank_Shielding_log,0,0,0);
+  new BaccDetectorComponent(0, G4ThreeVector(0,0,0), Lead_Box_log, "Lead_Box_object", Water_Tank_Shielding_log,0,0,true);
  
   G4RotationMatrix* rm1 = new G4RotationMatrix();
   rm1->rotateX(90.*deg); 
@@ -359,8 +362,11 @@ XeNeu_DDShieldingMigdal::XeNeu_DDShieldingMigdal()
   */
   //Finally Create the entire WaterTank Shielding
   //  G4PVPlacement * Water_Tank_object = 
-  new G4PVPlacement(0,G4ThreeVector(0,0,0),Water_Tank_Shielding_log,"Water_Tank_object",full_shield_assembly_log,0,0,0);
-  
+  //new G4PVPlacement(0,G4ThreeVector(0,0,0),Water_Tank_Shielding_log,"Water_Tank_object",full_shield_assembly_log,0,0,0);
+  //new BaccDetectorComponent(0,G4ThreeVector(0,0,0),Water_Tank_Shielding_log,"Water_Tank_object",full_shield_assembly_log,0,0,0);
+  //BaccDetectorComponent * Water_Tank_object = 
+  new BaccDetectorComponent(0,G4ThreeVector(0,0,0),Water_Tank_Shielding_log,"Water_Tank_object",full_shield_assembly_log,0,0,true);
+
   //Lead shielding outside collimator
 
   G4Box * LeadOutside_Left = new G4Box("LeadOutside_Left", (2.54*0.275)/2*cm,34.4/2*cm,22.62/2*cm);
@@ -395,6 +401,6 @@ XeNeu_DDShieldingMigdal::XeNeu_DDShieldingMigdal()
 }
 
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-//				~XeNeu_DDShieldingMigdal
+//				~XeNeuMigdal_DDShielding
 //------++++++------++++++------++++++------++++++------++++++------++++++------
-XeNeu_DDShieldingMigdal::~XeNeu_DDShieldingMigdal(){}
+XeNeuMigdal_DDShielding::~XeNeuMigdal_DDShielding(){}
