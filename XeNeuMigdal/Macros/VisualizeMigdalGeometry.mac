@@ -19,8 +19,11 @@
 /vis/viewer/set/viewpointVector 0.5 0.75 1
 /vis/viewer/set/upVector 0 0 1
 /vis/viewer/zoom 0 
-#/vis/viewer/set/viewpointThetaPhi 45 45             
+/vis/viewer/set/viewpointThetaPhi 45 45             
 /vis/viewer/set/style surface
+/vis/modeling/trajectories/create/drawByCharge
+/vis/modeling/trajectories/drawByCharge-0/default/setDrawStepPts true
+/vis/modeling/trajectories/drawByCharge-0/default/setStepPtsSize 2
 
 # Set up visualization so that we don't cloud the issue with neutrinos - Comment this stuff out if you want to skip visualization
 /vis/filtering/trajectories/create/particleFilter
@@ -34,6 +37,7 @@
 
 # Color keys: white, gray, grey, black, red, green, blue, cyan, magenta, yellow - Comment this stuff out if you want to skip visualization
 /vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/drawByParticleID-0/default/setDrawStepPts true
 /vis/modeling/trajectories/drawByParticleID-0/set e+ blue
 /vis/modeling/trajectories/drawByParticleID-0/set e- magenta
 /vis/modeling/trajectories/drawByParticleID-0/set proton cyan
@@ -47,6 +51,7 @@
 # Set the i/o parameters
 /Bacc/io/outputDir /p/lustre1/hardy27/simulations/XeNeuMigdal_vis/
 /Bacc/io/outputName DD_14det_95cmXDistance_10degOpening_Migdal_
+#/Bacc/io/outputName DT_14det_95cmXDistance_10degOpening_Migdal_
 /Bacc/io/updateFrequency 5000
 
 # Set the random seed
@@ -54,6 +59,7 @@
 
 # Select the kind of detector to use
 /XeNeuMigdal/ddShieldingOn true
+# /XeNeuMigdal/dtShieldingOn true
 /Bacc/detector/select XeNeuMigdalDetector
 
 # Update geometry
@@ -63,15 +69,22 @@
 /gps/particle neutron
 /gps/energy 2.5 MeV
 /gps/ene/type Mono
-/gps/position 1.52 0. 0. m
-/gps/ang/type iso
-/gps/ang/mintheta 0. deg
-/gps/ang/maxtheta 10. deg
-/gps/ang/rot1 0 0 1
-/gps/ang/rot2 0 -1 0
+/gps/position 0.7072 0. 0. m # use this for DD
+#/gps/position 1.52 0. 0. m # use this for DT
+/gps/direction -1 0 0
+#/gps/ang/type iso
+#/gps/ang/mintheta 0. deg
+#/gps/ang/maxtheta 10. deg
+#/gps/ang/rot1 0 0 1
+#/gps/ang/rot2 0 -1 0
 
 /Bacc/physicsList/useOpticalProcesses 0
 
-/Bacc/beamOn 1
+/vis/viewer/flush
+
+#/Bacc/beamOn 5
+
+# Save the VRML file to a better location
+/control/shell mv g4_00.wrl vrml_files/dd_ls_farther.wrl # vrml_files/g4_$(date +%Y-%m-%d-%H-%M-%S).wrl
 
 exit

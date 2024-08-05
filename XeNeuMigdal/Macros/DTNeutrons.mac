@@ -14,11 +14,11 @@
 /run/initialize
 
 # Set the output directory
-/Bacc/io/outputDir /p/lustre1/hardy27/simulations/XeNeuMigdal_20240718/
+/Bacc/io/outputDir /p/lustre1/hardy27/simulations/XeNeuMigdal_20240724/
 
 # Set the name of the output files. There is a large ~10 digit random number that gets
 # appended to this string to uniquely identify files.
-/Bacc/io/outputName DT_14det_95cmXDistance_10degOpening_Migdal_
+/Bacc/io/outputName DT_14det_95cmXDistance_noSpread_Migdal_
 
 # This just defines how often the code prints its progress to the screen while it runs.
 /Bacc/io/updateFrequency 5000
@@ -90,11 +90,12 @@
 /gps/energy 14.1 MeV
 /gps/ene/type Mono
 /gps/position 1.52 0. 0. m
-/gps/ang/type iso
-/gps/ang/mintheta 0. deg
-/gps/ang/maxtheta 10. deg
-/gps/ang/rot1 0 0 1
-/gps/ang/rot2 0 -1 0
+/gps/direction -1 0 0
+#/gps/ang/type iso
+#/gps/ang/mintheta 0. deg
+#/gps/ang/maxtheta 10. deg
+#/gps/ang/rot1 0 0 1
+#/gps/ang/rot2 0 -1 0
 
 # This turns on/off the NEST that's built into the G4 simulation. Always turn this off,
 # since the built-in NEST is way outdated and doesn't work properly.

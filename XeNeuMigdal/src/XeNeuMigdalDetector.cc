@@ -261,6 +261,7 @@ if (ddShieldingOn) {
   // Hardcoded dimension of true Migdal Run August 2022:
   // 95cm from center of TPC to the front faces of the LS detectors
   double ls_DistanceX = -1.*(95.0 * cm + 4.5 * 2.54*cm); // Distance for DT generator
+  ls_DistanceX = ls_DistanceX * tan(17.*deg) / tan(13.*deg);
   //double ls_DistanceX = -1.*(34.0 * cm + 4.5 * 2.54*cm); // Distance for DD generator
   double ls_ring_radius = 26.5 * cm;
 

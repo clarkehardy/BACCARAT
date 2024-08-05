@@ -1,10 +1,10 @@
 #!/usr/local/bin/python
 
 import os
-execdir = "/g/g20/lenardo1/Simulations/BACCARAT/tools"
-datadir = "/p/lustre1/lenardo1/simulations/XeNeu_DT_20220403_10deg_14det_95cmXdistance_06/"
-executable = "/g/g20/lenardo1/Simulations/BACCARAT/tools/BaccRootConverter"
-base = "XeNu_DT_rootified_"
+execdir = "/g/g92/hardy27/BACCARAT/tools"
+datadir = "/p/lustre1/hardy27/simulations/XeNeuMigdal_20240724/DT_noSpread/"
+executable = "/g/g92/hardy27/BACCARAT/tools/BaccRootConverter"
+base = "XeNeuMigdal_rootified_"
 
 files = os.listdir(datadir)
 binfiles = [f for f in files if f.endswith('bin')]
@@ -26,10 +26,9 @@ for f in binfiles:
 	
 	thescript = "#!/bin/bash\n" + \
 		"#SBATCH -t 0:15:00\n" + \
-		"#SBATCH -A redxenon\n" + \
 		"#SBATCH -e " + outfilename + "\n" + \
 		"#SBATCH -o " + outfilename + "\n" + \
-		"#SBATCH --mail-user=bglenardo@gmail.com --mail-type=fail\n" + \
+		"#SBATCH --mail-user=cahardy@stanford.edu --mail-type=fail\n" + \
 		"#SBATCH -J " + basename + "\n" + \
 		"#SBATCH --export=ALL \n" + \
 		"source ~/.profile.linux \n" + \

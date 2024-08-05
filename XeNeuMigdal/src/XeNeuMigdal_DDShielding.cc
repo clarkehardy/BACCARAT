@@ -133,12 +133,12 @@ XeNeuMigdal_DDShielding::XeNeuMigdal_DDShielding()
 							   "BPEShielding_log");
   BPEShielding_log->SetVisAttributes(Xmat->GetVisAttributesByName("pink"));
   // BPEShielding_log->SetVisAttributes(BACCmaterials->TestRedVis());
-  new G4PVPlacement(0,
+  new BaccDetectorComponent(0,
 		    G4ThreeVector(center_bpe_collimator, 0., -0.5*inch), //make it 0.5 inch below 0 so the collimator is at 0 in z
 		    BPEShielding_log,
 		    "BPEShielding_object",
 		    Water_Tank_Shielding_log,
-		    0,0,0);
+		    0,0,true);
 
   //comment out the BPE 5 slab -- not sure why we need this? Do we have BPE5 right beloe the center?
   /*
@@ -167,14 +167,14 @@ XeNeuMigdal_DDShielding::XeNeuMigdal_DDShielding()
 							 matman->FindOrBuildMaterial("G4_AIR"), 
 							 "Collimator_log");
   Collimator_log->SetVisAttributes( Xmat->GetVisAttributesByName("green") );
-  new G4PVPlacement( 0,
+  new BaccDetectorComponent( 0,
 		     //		    G4ThreeVector(0, DT_Shift_y_Position, 0.), //this is center in z
 		     G4ThreeVector(0, DT_Shift_y_Position, 0.5*inch), //this is center in z
 		     Collimator_log, 
 		     "Collimator_object", 
 		     //		    BPE_5_slab_log,
-		     BPEShielding_log,                                                                                                                                                                                                                                                                                                                   		     0,0,true );
- 
+         BPEShielding_log,0,0,true );
+
   //------------------------------------------------------------------------------------------------
   // Create the box with the DD generator
   double top_al_sheet_thickness = 3./8.* inch;
@@ -185,12 +185,12 @@ XeNeuMigdal_DDShielding::XeNeuMigdal_DDShielding()
 							matman->FindOrBuildMaterial("G4_AIR"),
 							"ddgen_box_log");
   ddgen_box_log->SetVisAttributes(G4VisAttributes::GetInvisible());
-  new G4PVPlacement(0,
+  new BaccDetectorComponent(0,
 		    G4ThreeVector(ddgen_box_x_offset, 0., -0.5*inch), //make it 0.5 inch above 0 so the collimator is at 0 in z
 		    ddgen_box_log,
 		    "ddgen_box",
 		    Water_Tank_Shielding_log,
-		    0,0,0);
+		    0,0,true);
 
   G4Box * top_al_sheet_box = new G4Box("top_al_sheet_box", brick_half_width_x, bpe_half_length_y, top_al_sheet_thickness/2.);
   G4LogicalVolume * top_al_sheet_log = new G4LogicalVolume( top_al_sheet_box,
@@ -198,13 +198,13 @@ XeNeuMigdal_DDShielding::XeNeuMigdal_DDShielding()
 							    matman->FindOrBuildMaterial("G4_Al"),
 							    "top_al_sheet_log");
   top_al_sheet_log->SetVisAttributes( Xmat->GetVisAttributesByName("lgrey") );
-  new G4PVPlacement( 0, 
+  new BaccDetectorComponent( 0, 
 		     G4ThreeVector(0, 0, brick_half_height_z - top_al_sheet_thickness/2. ),
 		     top_al_sheet_log,
 		     "top_al_sheet",
 		     //		     Water_Tank_Shielding_log,
 		     ddgen_box_log,
-		     0,0,0);
+		     0,0,true);
 
   G4Box * bottom_al_sheet_box = new G4Box("bottom_al_sheet_box", brick_half_width_x, bpe_half_length_y, bottom_al_sheet_thickness/2.);
   G4LogicalVolume * bottom_al_sheet_log = new G4LogicalVolume( bottom_al_sheet_box,
@@ -212,13 +212,13 @@ XeNeuMigdal_DDShielding::XeNeuMigdal_DDShielding()
 							       matman->FindOrBuildMaterial("G4_Al"),
 							       "bottom_al_sheet_log");
   bottom_al_sheet_log->SetVisAttributes( Xmat->GetVisAttributesByName("lgrey") );
-  new G4PVPlacement( 0, 
+  new BaccDetectorComponent( 0, 
 		     G4ThreeVector(0, 0, -brick_half_height_z + bottom_al_sheet_thickness/2. ),
 		     bottom_al_sheet_log,
 		     "bottom_al_sheet",
 		     //Water_Tank_Shielding_log,
 		     ddgen_box_log,
-		     0,0,0);
+		     0,0,true);
 
   G4Box * dd_bpe_shield_box = new G4Box("dd_bpe_shield_box", 2.*inch, bpe_half_length_y, 2.5*inch); //this is 5 inch tall, so looks good
   G4LogicalVolume * dd_bpe_shield_log = new G4LogicalVolume( dd_bpe_shield_box,
@@ -226,13 +226,13 @@ XeNeuMigdal_DDShielding::XeNeuMigdal_DDShielding()
 							     Xmat->BPE30(),
 							     "dd_bpe_shield_log");
   dd_bpe_shield_log->SetVisAttributes( Xmat->GetVisAttributesByName("pink") );
-  new G4PVPlacement( 0, 
+  new BaccDetectorComponent( 0, 
 		     G4ThreeVector(-2.5*inch, 0, 0.125*inch), 
 		     dd_bpe_shield_log,
 		     "dd_BPE_shield",
 		     //Water_Tank_Shielding_log,
 		     ddgen_box_log,
-		     0,0,0);
+		     0,0,true);
    
   G4Box * dd_short_collimator_box = new G4Box("dd_short_collimator_box", 2.*inch, 0.5*inch, inch);
   G4LogicalVolume * dd_short_collimator_log = new G4LogicalVolume( dd_short_collimator_box,
@@ -240,12 +240,12 @@ XeNeuMigdal_DDShielding::XeNeuMigdal_DDShielding()
 								   "dd_short_collimator_log");
   //  dd_short_collimator_log->SetVisAttributes( G4VisAttributes::GetInvisible() );
   dd_short_collimator_log->SetVisAttributes( Xmat->GetVisAttributesByName("green"));
-  new G4PVPlacement( 0, 
+  new BaccDetectorComponent( 0, 
 		     G4ThreeVector(0, DT_Shift_y_Position, 0.5*inch),
 		     dd_short_collimator_log,
 		     "dd_short_collimator",
 		     dd_bpe_shield_log,
-		     0,0,0);
+		     0,0,true);
 
   //Create The Lead Shielding Surrounding the DT generator
   double DD_Tube_Radius = 10.16/2*cm;
@@ -268,12 +268,12 @@ XeNeuMigdal_DDShielding::XeNeuMigdal_DDShielding()
   G4Tubs * DD_Tube = new G4Tubs("DD_Tube", DD_Tube_Radius-2.54/16.*cm, DD_Tube_Radius, (DT_container_half_width_y), 0,2*PI);
   G4LogicalVolume * DD_Tube_log = new G4LogicalVolume(DD_Tube,matman->FindOrBuildMaterial("G4_STAINLESS-STEEL"),"DD_Tube_log"); 
   DD_Tube_log->SetVisAttributes(Xmat->GetVisAttributesByName("grey"));
-  new G4PVPlacement(rm1,
+  new BaccDetectorComponent(rm1,
 		    G4ThreeVector(1.5*inch, 0,0.5*inch),
 		    DD_Tube_log, 
 		    "DD_Tube", 
 		    ddgen_box_log,
-		    0,0,0);
+		    0,0,true);
 
 
 
@@ -380,7 +380,7 @@ XeNeuMigdal_DDShielding::XeNeuMigdal_DDShielding()
   LeadOutside_Left_log->SetVisAttributes(Xmat->GetVisAttributesByName("purple"));
 
   //G4PVPlacement * LeadOutside_Left_object = 
-  new G4PVPlacement(0,G4ThreeVector(-water_half_length_x - inch/2.,DT_Shift_y_Position - 34.4/2*cm - inch/2.,0),LeadOutside_Left_log,"LeadOutside_Left_object",full_shield_assembly_log,0,0,0); 
+  new BaccDetectorComponent(0,G4ThreeVector(-water_half_length_x - inch/2.,DT_Shift_y_Position - 34.4/2*cm - inch/2.,0),LeadOutside_Left_log,"LeadOutside_Left_object",full_shield_assembly_log,0,0,true); 
 
   // Commented out for DT Migdal measurements, August 2022
   //G4Box * LeadOutside_Right = new G4Box("LeadOutside_Right", inch/2.,24.4/2*cm,22.62/2*cm);
@@ -395,7 +395,7 @@ XeNeuMigdal_DDShielding::XeNeuMigdal_DDShielding()
   LeadOutside_Right_log->SetVisAttributes(Xmat->GetVisAttributesByName("purple"));
 
   //G4PVPlacement * LeadOutside_Right_object = 
-  new G4PVPlacement(0,G4ThreeVector(-water_half_length_x - inch/2.,DT_Shift_y_Position + 24.4/2*cm + inch/2.,0),LeadOutside_Right_log,"LeadOutside_Right_object",full_shield_assembly_log,0,0,0);
+  new BaccDetectorComponent(0,G4ThreeVector(-water_half_length_x - inch/2.,DT_Shift_y_Position + 24.4/2*cm + inch/2.,0),LeadOutside_Right_log,"LeadOutside_Right_object",full_shield_assembly_log,0,0,true);
  
 
 }

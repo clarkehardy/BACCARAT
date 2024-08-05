@@ -2,11 +2,11 @@
 
 import os
 
-datadir = '/p/lustre1/lenardo1/simulations/XeNeu_DT_20220901_2deg_14det_95cmXdistance_08/'
+datadir = '/p/lustre1/hardy27/simulations/XeNeuMigdal_20240724/DD_10deg/'
 
-execdir = "/g/g20/lenardo1/Simulations/"
-macro = "/g/g20/lenardo1/Simulations/XeNeuReductionMacroTemplate.C"
-base = "XeNu_DT_processing_and_reduction_"
+execdir = "/g/g92/hardy27/BACCARAT/AnalysisTools/"
+macro = "/g/g92/hardy27/BACCARAT/AnalysisTools/XeNeuReductionMacroTemplate.C"
+base = "DD_14det_95cmXDistance_10deg_Migdal_"
 
 files = os.listdir(datadir)
 
@@ -33,10 +33,9 @@ for i,f in enumerate(binfiles):
 	 
 	thescript = "#!/bin/bash\n" + \
 		"#SBATCH -t 00:10:00\n" + \
-		"#SBATCH -A redxenon\n" + \
 		"#SBATCH -e " + outfilename + "\n" + \
 		"#SBATCH -o " + outfilename + "\n" + \
-		"#SBATCH --mail-user=bglenardo@gmail.com --mail-type=fail\n" + \
+		"#SBATCH --mail-user=cahardy@stanford.edu --mail-type=fail\n" + \
 		"#SBATCH -J " + basename + "\n" + \
 		"#SBATCH --export=ALL \n" + \
 		"cd " + execdir + "\n" + \

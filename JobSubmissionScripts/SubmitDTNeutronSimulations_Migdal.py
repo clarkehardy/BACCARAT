@@ -5,12 +5,12 @@ geant4 = "geant4.10.7.2"
 root = "root_v6.24.08"
 execdir = "/g/g92/hardy27/BACCARAT/"
 
-macro = "/g/g92/hardy27/BACCARAT/XeNeuDT/Macros/DTNeutrons_10deg_95cmX_Migdal_EXAMPLE.mac"
+macro = "/g/g92/hardy27/BACCARAT/XeNeuMigdal/Macros/DDNeutrons_10deg.mac"
 
-datadir = '/p/lustre1/hardy27/simulations/XeNeu_DT_20220403_10deg_14det_95cmXdistance_EXAMPLE/'
-base = "XeNeu_DT_"
+datadir = '/p/lustre1/hardy27/simulations/XeNeuMigdal_20240724/'
+base = "Migdal_DD_10deg_"
 
-for num in range(0,10):
+for num in range(0,100):
 	#if num > 0: break
 	basename = base + str(num)
 
@@ -20,7 +20,7 @@ for num in range(0,10):
 	os.system( "rm -f " + outfilename )
 	
 	thescript = "#!/bin/bash\n" + \
-		"#SBATCH -t 0:10:00\n" + \
+		"#SBATCH -t 4:30:00\n" + \
 		"#SBATCH -e " + outfilename + "\n" + \
 		"#SBATCH -o " + outfilename + "\n" + \
 		"#SBATCH --mail-user=cahardy@stanford.edu --mail-type=fail\n" + \

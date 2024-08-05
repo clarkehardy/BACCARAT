@@ -6,7 +6,7 @@ void XeNeuReductionLoadLibraries() {
   cerr << "Inside LoadLibraries script..." << endl;
   //gSystem->Load("BACCARAT/tools/libBaccRootConverterEvent.so");
   //gSystem->Load("Xe127SimsAnalysisEnvironment_cc.so");
-  gROOT->ProcessLine(".L BACCARAT/tools/BaccRootConverterEvent.cc+");
+  gROOT->ProcessLine(".L BaccRootConverterEvent.cc+");
   gROOT->ProcessLine(".L XeNeuSimsAnalysisEnvironment.cc+");
 
 }
